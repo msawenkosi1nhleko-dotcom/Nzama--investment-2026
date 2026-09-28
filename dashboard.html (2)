@@ -1,0 +1,1624 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>NZAMA INVESTMENT | Client Dashboard</title><style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --navy:#071426;
+    --navy2:#0d1f38;
+    --gold:#d6ad55;
+    --gold2:#f0cf7a;
+    --white:#ffffff;
+    --light:#f4f6fa;
+    --text:#172033;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --green:#16834b;
+    --red:#c0392b;
+    --shadow:0 12px 35px rgba(7,20,38,.10);
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:var(--light);
+    color:var(--text);
+    min-height:100vh;
+}
+
+/* ================= NAVIGATION ================= */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    width:100%;
+    background:rgba(7,20,38,.98);
+    border-bottom:1px solid rgba(214,173,85,.25);
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
+}
+
+.nav-inner{
+    max-width:1250px;
+    margin:auto;
+    min-height:76px;
+    padding:0 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:white;
+}
+
+.logo{
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--gold),var(--gold2));
+    color:var(--navy);
+    font-weight:900;
+    font-size:17px;
+    box-shadow:0 5px 15px rgba(214,173,85,.25);
+}
+
+.brand-text{
+    line-height:1.1;
+}
+
+.brand-name{
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:.7px;
+}
+
+.brand-sub{
+    color:#b9c2d0;
+    font-size:10px;
+    letter-spacing:1.8px;
+    margin-top:4px;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.nav-links a,
+.logout-btn{
+    border:0;
+    background:transparent;
+    color:#dfe6ef;
+    text-decoration:none;
+    padding:11px 15px;
+    border-radius:9px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.nav-links a:hover,
+.logout-btn:hover{
+    background:rgba(255,255,255,.08);
+    color:white;
+}
+
+.nav-links a.active{
+    background:rgba(214,173,85,.15);
+    color:var(--gold2);
+}
+
+.logout-btn{
+    border:1px solid rgba(214,173,85,.55);
+    color:var(--gold2);
+}
+
+.menu-btn{
+    display:none;
+    border:1px solid rgba(255,255,255,.15);
+    background:transparent;
+    color:white;
+    border-radius:9px;
+    padding:9px 12px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+/* ================= PAGE ================= */
+
+.page{
+    max-width:1250px;
+    margin:auto;
+    padding:35px 22px 60px;
+}
+
+.hero{
+    background:
+        linear-gradient(120deg,rgba(7,20,38,.98),rgba(13,31,56,.94));
+    color:white;
+    border-radius:20px;
+    padding:32px;
+    margin-bottom:24px;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    width:280px;
+    height:280px;
+    border-radius:50%;
+    border:1px solid rgba(214,173,85,.15);
+    right:-100px;
+    top:-100px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.eyebrow{
+    color:var(--gold2);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:9px;
+}
+
+.hero h1{
+    font-size:34px;
+    line-height:1.2;
+    margin-bottom:9px;
+}
+
+.hero p{
+    color:#c9d2df;
+    max-width:680px;
+    line-height:1.6;
+}
+
+/* ================= NOTICE ================= */
+
+.notice{
+    background:#fffaf0;
+    border:1px solid #ead8a9;
+    border-left:5px solid var(--gold);
+    padding:17px 19px;
+    border-radius:13px;
+    margin-bottom:25px;
+    color:#5e4a20;
+    line-height:1.55;
+    font-size:13px;
+}
+
+/* ================= SUMMARY CARDS ================= */
+
+.summary-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.summary-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:23px;
+    box-shadow:var(--shadow);
+}
+
+.summary-label{
+    color:var(--muted);
+    font-size:12px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    margin-bottom:10px;
+}
+
+.summary-value{
+    font-size:28px;
+    font-weight:900;
+    color:var(--navy);
+}
+
+.summary-small{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* ================= CONTENT GRID ================= */
+
+.content-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+}
+
+.card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:24px;
+    box-shadow:var(--shadow);
+    margin-bottom:22px;
+}
+
+.card.full{
+    grid-column:1 / -1;
+}
+
+.card-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:20px;
+    padding-bottom:15px;
+    border-bottom:1px solid var(--border);
+}
+
+.card-title{
+    font-size:18px;
+    font-weight:900;
+    color:var(--navy);
+}
+
+.card-subtitle{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+/* ================= PROFILE ================= */
+
+.profile-top{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.avatar{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--navy),#1d416d);
+    color:var(--gold2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    font-weight:900;
+    border:3px solid #ead8a9;
+}
+
+.profile-name{
+    font-weight:900;
+    font-size:19px;
+}
+
+.profile-role{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:3px;
+}
+
+.info-list{
+    display:grid;
+    gap:12px;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    padding:12px 0;
+    border-bottom:1px solid #f0f1f3;
+}
+
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-label{
+    color:var(--muted);
+    font-size:12px;
+    font-weight:700;
+}
+
+.info-value{
+    text-align:right;
+    font-size:13px;
+    font-weight:800;
+    word-break:break-word;
+}
+
+.uid{
+    font-size:10px;
+    max-width:210px;
+}
+
+/* ================= STATUS ================= */
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+.status:before{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:currentColor;
+}
+
+.status.active{
+    color:var(--green);
+    background:#e9f8ef;
+}
+
+.status.pending{
+    color:#a36a00;
+    background:#fff4d8;
+}
+
+.status.inactive{
+    color:var(--red);
+    background:#fdecea;
+}
+
+/* ================= PORTFOLIO ================= */
+
+.portfolio-main{
+    background:linear-gradient(135deg,var(--navy),var(--navy2));
+    border-radius:15px;
+    padding:22px;
+    color:white;
+    margin-bottom:15px;
+}
+
+.portfolio-label{
+    color:#b9c5d5;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-weight:800;
+}
+
+.portfolio-value{
+    font-size:34px;
+    font-weight:900;
+    margin-top:7px;
+}
+
+.portfolio-plan{
+    color:var(--gold2);
+    font-size:13px;
+    font-weight:800;
+    margin-top:6px;
+}
+
+.portfolio-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.mini-box{
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:16px;
+}
+
+.mini-label{
+    color:var(--muted);
+    font-size:11px;
+    text-transform:uppercase;
+    font-weight:800;
+}
+
+.mini-value{
+    margin-top:7px;
+    font-size:18px;
+    font-weight:900;
+}
+
+/* ================= TRANSACTIONS ================= */
+
+.transaction-list{
+    display:grid;
+    gap:11px;
+}
+
+.transaction{
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    align-items:center;
+}
+
+.transaction-name{
+    font-weight:800;
+    font-size:13px;
+}
+
+.transaction-date{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+.transaction-amount{
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.transaction-amount.positive{
+    color:var(--green);
+}
+
+.transaction-amount.negative{
+    color:var(--red);
+}
+
+.empty{
+    text-align:center;
+    padding:30px 15px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    background:var(--navy);
+    color:#aeb9c8;
+    text-align:center;
+    padding:28px 20px;
+    font-size:12px;
+    line-height:1.7;
+}
+
+.footer strong{
+    color:var(--gold2);
+}
+
+/* ================= LOADING ================= */
+
+.loading-screen{
+    position:fixed;
+    inset:0;
+    background:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:5000;
+    color:white;
+    text-align:center;
+}
+
+.loading-box{
+    padding:25px;
+}
+
+.spinner{
+    width:42px;
+    height:42px;
+    border:3px solid rgba(255,255,255,.2);
+    border-top-color:var(--gold2);
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin:0 auto 16px;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:800px){
+
+    .nav-inner{
+        min-height:68px;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .nav-links{
+        position:absolute;
+        top:68px;
+        left:0;
+        right:0;
+        background:var(--navy);
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        padding:10px 15px 15px;
+        border-bottom:1px solid rgba(214,173,85,.25);
+    }
+
+    .nav-links.open{
+        display:flex;
+    }
+
+    .nav-links a,
+    .logout-btn{
+        width:100%;
+        text-align:left;
+    }
+
+    .summary-grid{
+        grid-template-columns:1fr;
+    }
+
+    .content-grid{
+        grid-template-columns:1fr;
+    }
+
+    .card.full{
+        grid-column:auto;
+    }
+
+    .hero{
+        padding:25px 20px;
+    }
+
+    .hero h1{
+        font-size:27px;
+    }
+
+    .page{
+        padding:22px 14px 45px;
+    }
+
+    .card{
+        padding:19px;
+    }
+
+    .brand-sub{
+        display:none;
+    }
+
+    .brand-name{
+        font-size:15px;
+    }
+
+    .logo{
+        width:40px;
+        height:40px;
+    }
+}
+
+@media(max-width:420px){
+
+    .info-row{
+        flex-direction:column;
+        gap:5px;
+    }
+
+    .info-value{
+        text-align:left;
+    }
+
+    .portfolio-value{
+        font-size:29px;
+    }
+
+    .transaction{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .transaction-amount{
+        white-space:normal;
+    }
+}
+</style></head><body><!-- LOADING --><div class="loading-screen" id="loadingScreen">
+    <div class="loading-box">
+        <div class="spinner"></div>
+        <strong>Loading NZAMA INVESTMENT</strong>
+        <p style="margin-top:7px;color:#b9c5d5;font-size:12px;">
+            Connecting to your client portal...
+        </p>
+    </div>
+</div><!-- NAVIGATION --><nav class="navbar">
+    <div class="nav-inner">    <a href="index.html" class="brand">
+        <div class="logo">NZ</div>
+
+        <div class="brand-text">
+            <div class="brand-name">NZAMA INVESTMENT</div>
+            <div class="brand-sub">CLIENT PORTAL</div>
+        </div>
+    </a>
+
+    <button class="menu-btn" id="menuBtn" type="button">
+        ☰
+    </button>
+
+    <div class="nav-links" id="navLinks">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="index.html#about">
+            About
+        </a>
+
+        <a href="dashboard.html" class="active">
+            My Dashboard
+        </a>
+
+        <button class="logout-btn" id="logoutBtn">
+            Logout
+        </button>
+
+    </div>
+</div>
+
+</nav><!-- MAIN --><main class="page"><!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            Secure Client Portal
+        </div>
+
+        <h1>
+            Welcome, <span id="welcomeName">Client</span>
+        </h1>
+
+        <p>
+            View your NZAMA INVESTMENT profile, illustrative portfolio
+            information, account balance and transaction history from
+            one central dashboard.
+        </p>
+
+    </div>
+</section>
+
+
+<!-- EDUCATIONAL NOTICE -->
+<div class="notice">
+    <strong>Educational Project Notice:</strong>
+    This client portal is designed for educational and demonstration
+    purposes. Portfolio values, balances, plans and transactions shown
+    here are illustrative and should not be interpreted as guaranteed
+    investment returns or evidence of actual funds.
+</div>
+
+
+<!-- SUMMARY -->
+<section class="summary-grid">
+
+    <div class="summary-card">
+        <div class="summary-label">
+            Account Status
+        </div>
+
+        <div id="accountStatusSummary">
+            <span class="status active">Loading</span>
+        </div>
+
+        <div class="summary-small">
+            Current client account status
+        </div>
+    </div>
+
+
+    <div class="summary-card">
+        <div class="summary-label">
+            Portfolio Value
+        </div>
+
+        <div class="summary-value" id="summaryPortfolio">
+            R0.00
+        </div>
+
+        <div class="summary-small">
+            Illustrative current portfolio value
+        </div>
+    </div>
+
+
+    <div class="summary-card">
+        <div class="summary-label">
+            Account Balance
+        </div>
+
+        <div class="summary-value" id="summaryBalance">
+            R0.00
+        </div>
+
+        <div class="summary-small">
+            Illustrative account balance
+        </div>
+    </div>
+
+</section>
+
+
+<!-- CONTENT -->
+<section class="content-grid">
+
+
+    <!-- CLIENT PROFILE -->
+    <div class="card">
+
+        <div class="card-header">
+            <div>
+                <div class="card-title">
+                    Client Profile
+                </div>
+
+                <div class="card-subtitle">
+                    Your registered account information
+                </div>
+            </div>
+        </div>
+
+
+        <div class="profile-top">
+
+            <div class="avatar" id="avatar">
+                NZ
+            </div>
+
+            <div>
+                <div class="profile-name" id="profileName">
+                    Loading...
+                </div>
+
+                <div class="profile-role" id="profileRole">
+                    Client Account
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="info-list">
+
+            <div class="info-row">
+                <div class="info-label">
+                    FULL NAME
+                </div>
+
+                <div class="info-value" id="clientName">
+                    —
+                </div>
+            </div>
+
+
+            <div class="info-row">
+                <div class="info-label">
+                    EMAIL
+                </div>
+
+                <div class="info-value" id="clientEmail">
+                    —
+                </div>
+            </div>
+
+
+            <div class="info-row">
+                <div class="info-label">
+                    PHONE
+                </div>
+
+                <div class="info-value" id="clientPhone">
+                    —
+                </div>
+            </div>
+
+
+            <div class="info-row">
+                <div class="info-label">
+                    ACCOUNT STATUS
+                </div>
+
+                <div class="info-value" id="clientStatus">
+                    —
+                </div>
+            </div>
+
+
+            <div class="info-row">
+                <div class="info-label">
+                    ACCOUNT ROLE
+                </div>
+
+                <div class="info-value" id="clientRole">
+                    —
+                </div>
+            </div>
+
+
+            <div class="info-row">
+                <div class="info-label">
+                    MEMBER SINCE
+                </div>
+
+                <div class="info-value" id="memberSince">
+                    —
+                </div>
+            </div>
+
+
+            <div class="info-row">
+                <div class="info-label">
+                    FIREBASE USER ID
+                </div>
+
+                <div class="info-value uid" id="firebaseUid">
+                    —
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PORTFOLIO -->
+    <div class="card">
+
+        <div class="card-header">
+            <div>
+                <div class="card-title">
+                    Portfolio Overview
+                </div>
+
+                <div class="card-subtitle">
+                    Illustrative portfolio information
+                </div>
+            </div>
+        </div>
+
+
+        <div class="portfolio-main">
+
+            <div class="portfolio-label">
+                Current Portfolio Value
+            </div>
+
+            <div class="portfolio-value" id="portfolioValue">
+                R0.00
+            </div>
+
+            <div class="portfolio-plan" id="portfolioPlan">
+                Plan: Not assigned
+            </div>
+
+        </div>
+
+
+        <div class="portfolio-grid">
+
+            <div class="mini-box">
+
+                <div class="mini-label">
+                    Total Invested
+                </div>
+
+                <div class="mini-value" id="totalInvested">
+                    R0.00
+                </div>
+
+            </div>
+
+
+            <div class="mini-box">
+
+                <div class="mini-label">
+                    Portfolio Status
+                </div>
+
+                <div class="mini-value" id="portfolioStatus">
+                    —
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TRANSACTIONS -->
+    <div class="card full">
+
+        <div class="card-header">
+            <div>
+                <div class="card-title">
+                    Transactions
+                </div>
+
+                <div class="card-subtitle">
+                    Your recorded transaction history
+                </div>
+            </div>
+        </div>
+
+
+        <div class="transaction-list" id="transactionList">
+
+            <div class="empty">
+                Loading transactions...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main><!-- FOOTER --><footer class="footer"><strong>NZAMA INVESTMENT</strong><br>
+
+Client Portal • Educational Project
+
+<br><br>
+
+This website is a school/educational project.
+Information displayed on this dashboard is illustrative only.
+
+</footer><!-- FIREBASE --><script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+import {
+    getDatabase,
+    ref,
+    get
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+
+/* ================= FIREBASE CONFIG ================= */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyD7McDVKPQ5mZlcVBtmixK3Er9288rbeww",
+    authDomain: "nzama-investment-2026.firebaseapp.com",
+    databaseURL: "https://nzama-investment-2026-default-rtdb.firebaseio.com/",
+    projectId: "nzama-investment-2026",
+    storageBucket: "nzama-investment-2026.firebasestorage.app",
+    messagingSenderId: "1050465478535",
+    appId: "1:1050465478535:web:dbdee6dfe598b644399522",
+    measurementId: "G-LEPZ7W5HG8"
+};
+
+
+/* ================= INITIALIZE ================= */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getDatabase(app);
+
+
+/* ================= ELEMENTS ================= */
+
+const loadingScreen =
+    document.getElementById("loadingScreen");
+
+const welcomeName =
+    document.getElementById("welcomeName");
+
+const profileName =
+    document.getElementById("profileName");
+
+const profileRole =
+    document.getElementById("profileRole");
+
+const clientName =
+    document.getElementById("clientName");
+
+const clientEmail =
+    document.getElementById("clientEmail");
+
+const clientPhone =
+    document.getElementById("clientPhone");
+
+const clientStatus =
+    document.getElementById("clientStatus");
+
+const clientRole =
+    document.getElementById("clientRole");
+
+const memberSince =
+    document.getElementById("memberSince");
+
+const firebaseUid =
+    document.getElementById("firebaseUid");
+
+const avatar =
+    document.getElementById("avatar");
+
+const summaryPortfolio =
+    document.getElementById("summaryPortfolio");
+
+const summaryBalance =
+    document.getElementById("summaryBalance");
+
+const accountStatusSummary =
+    document.getElementById("accountStatusSummary");
+
+const portfolioValue =
+    document.getElementById("portfolioValue");
+
+const portfolioPlan =
+    document.getElementById("portfolioPlan");
+
+const totalInvested =
+    document.getElementById("totalInvested");
+
+const portfolioStatus =
+    document.getElementById("portfolioStatus");
+
+const transactionList =
+    document.getElementById("transactionList");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const navLinks =
+    document.getElementById("navLinks");
+
+
+/* ================= MOBILE MENU ================= */
+
+menuBtn.addEventListener("click", () => {
+
+    navLinks.classList.toggle("open");
+
+});
+
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        navLinks.classList.remove("open");
+
+    });
+
+});
+
+
+/* ================= HELPERS ================= */
+
+function formatMoney(value){
+
+    const number = Number(value);
+
+    if(!Number.isFinite(number)){
+        return "R0.00";
+    }
+
+    return "R" + number.toLocaleString("en-ZA", {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+    });
+}
+
+
+function formatDate(value){
+
+    if(!value){
+        return "—";
+    }
+
+    let date;
+
+    if(typeof value === "number"){
+
+        date = new Date(value);
+
+    }else{
+
+        date = new Date(value);
+
+    }
+
+    if(Number.isNaN(date.getTime())){
+
+        return String(value);
+
+    }
+
+    return date.toLocaleDateString("en-ZA", {
+        day:"2-digit",
+        month:"short",
+        year:"numeric"
+    });
+
+}
+
+
+function getInitials(name){
+
+    if(!name){
+        return "NZ";
+    }
+
+    const parts =
+        String(name)
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+
+    if(parts.length === 1){
+
+        return parts[0]
+            .substring(0,2)
+            .toUpperCase();
+
+    }
+
+    return (
+        parts[0][0] +
+        parts[parts.length - 1][0]
+    ).toUpperCase();
+
+}
+
+
+function statusHTML(status){
+
+    const clean =
+        String(status || "active")
+        .toLowerCase();
+
+    let css = "active";
+
+    if(clean === "pending"){
+        css = "pending";
+    }
+
+    if(
+        clean === "inactive" ||
+        clean === "disabled" ||
+        clean === "suspended"
+    ){
+        css = "inactive";
+    }
+
+    return `
+        <span class="status ${css}">
+            ${escapeHTML(status || "active")}
+        </span>
+    `;
+
+}
+
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* ================= TRANSACTIONS ================= */
+
+function renderTransactions(transactions){
+
+    transactionList.innerHTML = "";
+
+    if(!transactions){
+
+        transactionList.innerHTML = `
+            <div class="empty">
+                No transactions available.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    let items = [];
+
+
+    if(Array.isArray(transactions)){
+
+        items = transactions.map((item,index) => {
+
+            return {
+                id:index,
+                ...(item || {})
+            };
+
+        });
+
+    }else if(
+        typeof transactions === "object"
+    ){
+
+        items = Object.entries(transactions)
+            .map(([id,item]) => {
+
+                return {
+                    id:id,
+                    ...(item || {})
+                };
+
+            });
+
+    }
+
+
+    if(items.length === 0){
+
+        transactionList.innerHTML = `
+            <div class="empty">
+                No transactions available.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    items.sort((a,b) => {
+
+        const dateA =
+            new Date(a.date || a.createdAt || 0).getTime();
+
+        const dateB =
+            new Date(b.date || b.createdAt || 0).getTime();
+
+        return dateB - dateA;
+
+    });
+
+
+    items.forEach(item => {
+
+        const amount =
+            Number(item.amount || 0);
+
+        const positive =
+            amount >= 0;
+
+        const transaction =
+            document.createElement("div");
+
+        transaction.className = "transaction";
+
+        transaction.innerHTML = `
+
+            <div>
+
+                <div class="transaction-name">
+                    ${escapeHTML(
+                        item.description ||
+                        item.name ||
+                        item.type ||
+                        "Transaction"
+                    )}
+                </div>
+
+                <div class="transaction-date">
+                    ${formatDate(
+                        item.date ||
+                        item.createdAt
+                    )}
+                </div>
+
+            </div>
+
+            <div class="transaction-amount ${
+                positive ? "positive" : "negative"
+            }">
+
+                ${positive ? "+" : ""}
+                ${formatMoney(amount)}
+
+            </div>
+
+        `;
+
+        transactionList.appendChild(transaction);
+
+    });
+
+}
+
+
+/* ================= LOAD CLIENT ================= */
+
+async function loadClient(user){
+
+    try{
+
+        const userRef =
+            ref(db,"users/" + user.uid);
+
+        const snapshot =
+            await get(userRef);
+
+
+        if(!snapshot.exists()){
+
+            throw new Error(
+                "Your Firebase user profile could not be found."
+            );
+
+        }
+
+
+        const data =
+            snapshot.val() || {};
+
+
+        /* PROFILE */
+
+        const name =
+            data.name ||
+            user.displayName ||
+            "Client";
+
+
+        const email =
+            data.email ||
+            user.email ||
+            "—";
+
+
+        const phone =
+            data.phone ||
+            "—";
+
+
+        const role =
+            data.role ||
+            "client";
+
+
+        const accountStatus =
+            data.accountStatus ||
+            "active";
+
+
+        /* PROFILE DISPLAY */
+
+        welcomeName.textContent =
+            name.split(" ")[0] || name;
+
+        profileName.textContent =
+            name;
+
+        profileRole.textContent =
+            role === "admin"
+            ? "Administrator Account"
+            : "Client Account";
+
+
+        clientName.textContent =
+            name;
+
+        clientEmail.textContent =
+            email;
+
+        clientPhone.textContent =
+            phone;
+
+        clientRole.textContent =
+            role;
+
+        clientStatus.innerHTML =
+            statusHTML(accountStatus);
+
+        firebaseUid.textContent =
+            user.uid;
+
+
+        avatar.textContent =
+            getInitials(name);
+
+
+        /* MEMBER SINCE */
+
+        const createdAt =
+            data.createdAt;
+
+        memberSince.textContent =
+            formatDate(createdAt);
+
+
+        /* PORTFOLIO */
+
+        const portfolio =
+            data.portfolio || {};
+
+
+        const plan =
+            portfolio.plan ||
+            "Not assigned";
+
+
+        const invested =
+            portfolio.totalInvested ||
+            0;
+
+
+        const currentValue =
+            portfolio.currentValue ||
+            0;
+
+
+        const pStatus =
+            portfolio.status ||
+            "Not available";
+
+
+        /* BALANCE */
+
+        const balance =
+            data.accountBalance ??
+            data.balance ??
+            portfolio.accountBalance ??
+            0;
+
+
+        /* DISPLAY PORTFOLIO */
+
+        summaryPortfolio.textContent =
+            formatMoney(currentValue);
+
+        summaryBalance.textContent =
+            formatMoney(balance);
+
+
+        portfolioValue.textContent =
+            formatMoney(currentValue);
+
+        portfolioPlan.textContent =
+            "Plan: " + plan;
+
+        totalInvested.textContent =
+            formatMoney(invested);
+
+        portfolioStatus.innerHTML =
+            statusHTML(pStatus);
+
+
+        accountStatusSummary.innerHTML =
+            statusHTML(accountStatus);
+
+
+        /* TRANSACTIONS */
+
+        renderTransactions(
+            data.transactions
+        );
+
+
+        console.log(
+            "NZAMA INVESTMENT client loaded:",
+            user.uid
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+
+        alert(
+            "Could not load your client information. " +
+            "Please check your Firebase Realtime Database rules."
+        );
+
+    }finally{
+
+        loadingScreen.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* ================= AUTH ================= */
+
+onAuthStateChanged(auth, async (user) => {
+
+    if(!user){
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    await loadClient(user);
+
+});
+
+
+/* ================= LOGOUT ================= */
+
+logoutBtn.addEventListener("click", async () => {
+
+    try{
+
+        await signOut(auth);
+
+        window.location.href =
+            "login.html";
+
+    }catch(error){
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+        alert(
+            "Could not log out. Please try again."
+        );
+
+    }
+
+});
+
+</script></body>
+</html>
