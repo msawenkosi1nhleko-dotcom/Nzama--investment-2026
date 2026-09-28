@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0"
+>
+
+<title>NZAMA INVESTMENT | Login</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+    linear-gradient(
+        135deg,
+        #07111f,
+        #101b35,
+        #24134a
+    );
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.box{
+    width:100%;
+    max-width:430px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:22px;
+    padding:32px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.logo{
+    text-align:center;
+    color:#f3c969;
+    font-size:28px;
+    font-weight:900;
+}
+
+.subtitle{
+    text-align:center;
+    color:#cbd5e1;
+    margin:8px 0 28px;
+}
+
+label{
+    display:block;
+    margin:15px 0 7px;
+    font-size:14px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #334155;
+    background:#0b1628;
+    color:white;
+    outline:none;
+}
+
+input:focus{
+    border-color:#f3c969;
+}
+
+button{
+    width:100%;
+    margin-top:22px;
+    padding:15px;
+    border:0;
+    border-radius:10px;
+    background:#f3c969;
+    color:#111827;
+    font-weight:900;
+    font-size:16px;
+}
+
+button:disabled{
+    opacity:.6;
+}
+
+.message{
+    display:none;
+    margin-top:15px;
+    padding:12px;
+    border-radius:8px;
+    text-align:center;
+    font-size:14px;
+}
+
+.error{
+    background:rgba(239,68,68,.15);
+    color:#fecaca;
+}
+
+.bottom{
+    text-align:center;
+    margin-top:22px;
+    color:#cbd5e1;
+}
+
+.bottom a{
+    color:#f3c969;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.note{
+    color:#94a3b8;
+    font-size:12px;
+    text-align:center;
+    margin-top:20px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="box">
+
+    <div class="logo">
+        NZAMA INVESTMENT
+    </div>
+
+    <div class="subtitle">
+        Client Portal Login
+    </div>
+
+
+    <form id="loginForm">
+
+        <label for="email">
+            Email Address
+        </label>
+
+        <input
+            id="email"
+            type="email"
+            placeholder="Enter your email"
+            required
+        >
+
+
+        <label for="password">
+            Password
+        </label>
+
+        <input
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            required
+        >
+
+
+        <button
+            id="loginBtn"
+            type="submit"
+        >
+            Login
+        </button>
+
+    </form>
+
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+    <div class="bottom">
+
+        Don't have an account?
+
+        <a href="register.html">
+            Create Account
+        </a>
+
+    </div>
+
+
+    <div class="note">
+        NZAMA INVESTMENT educational client portal.
+    </div>
+
+</div>
+
+
+<script type="module">
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    signInWithEmailAndPassword
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyD7McDVKPQ5mZlcVBtmixK3Er9288rbeww",
+
+    authDomain:
+    "nzama-investment-2026.firebaseapp.com",
+
+    databaseURL:
+    "https://nzama-investment-2026-default-rtdb.firebaseio.com",
+
+    projectId:
+    "nzama-investment-2026",
+
+    storageBucket:
+    "nzama-investment-2026.firebasestorage.app",
+
+    messagingSenderId:
+    "1050465478535",
+
+    appId:
+    "1:1050465478535:web:dbdee6dfe598b644399522",
+
+    measurementId:
+    "G-LEPZ7W5HG8"
+
+};
+
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+
+const form =
+document.getElementById("loginForm");
+
+const message =
+document.getElementById("message");
+
+const loginBtn =
+document.getElementById("loginBtn");
+
+
+function showError(text){
+
+    message.textContent = text;
+
+    message.className =
+    "message error";
+
+    message.style.display =
+    "block";
+
+}
+
+
+form.addEventListener(
+    "submit",
+    async(event)=>{
+
+        event.preventDefault();
+
+
+        const email =
+        document.getElementById("email")
+        .value.trim();
+
+
+        const password =
+        document.getElementById("password")
+        .value;
+
+
+        loginBtn.disabled =
+        true;
+
+        loginBtn.textContent =
+        "Logging in...";
+
+
+        try{
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            window.location.href =
+            "dashboard.html";
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            let msg =
+            "Login failed.";
+
+
+            if(
+                error.code ===
+                "auth/invalid-credential"
+            ){
+
+                msg =
+                "Incorrect email or password.";
+
+            }
+
+            else if(
+                error.code ===
+                "auth/invalid-email"
+            ){
+
+                msg =
+                "Please enter a valid email address.";
+
+            }
+
+            else if(
+                error.code ===
+                "auth/user-disabled"
+            ){
+
+                msg =
+                "This account has been disabled.";
+
+            }
+
+
+            showError(msg);
+
+
+            loginBtn.disabled =
+            false;
+
+            loginBtn.textContent =
+            "Login";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

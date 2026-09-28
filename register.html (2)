@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Register | NZAMA INVESTMENT</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top right,#5b21b6 0,#17142d 35%,#070914 75%);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px 15px;
+}
+
+.container{
+    width:100%;
+    max-width:480px;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:22px;
+}
+
+.logo h1{
+    font-size:30px;
+    letter-spacing:2px;
+    color:#f5c542;
+}
+
+.logo p{
+    margin-top:7px;
+    color:#c9c9d8;
+    font-size:14px;
+}
+
+.card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.14);
+    backdrop-filter:blur(14px);
+    border-radius:20px;
+    padding:28px 22px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.card h2{
+    text-align:center;
+    margin-bottom:8px;
+    font-size:25px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#bfc1d0;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    margin:15px 0 7px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #44445a;
+    background:#101123;
+    color:#fff;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus{
+    border-color:#f5c542;
+    box-shadow:0 0 0 2px rgba(245,197,66,.12);
+}
+
+button{
+    width:100%;
+    margin-top:23px;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#f5c542;
+    color:#111;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    margin-top:18px;
+    padding:13px;
+    border-radius:9px;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.error{
+    display:block;
+    background:rgba(220,38,38,.15);
+    border:1px solid rgba(248,113,113,.35);
+    color:#fecaca;
+}
+
+.success{
+    display:block;
+    background:rgba(22,163,74,.15);
+    border:1px solid rgba(74,222,128,.35);
+    color:#bbf7d0;
+}
+
+.login{
+    text-align:center;
+    margin-top:20px;
+    color:#bfc1d0;
+    font-size:14px;
+}
+
+.login a{
+    color:#f5c542;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.notice{
+    margin-top:20px;
+    font-size:12px;
+    line-height:1.5;
+    color:#aaaabd;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <h1>NZAMA INVESTMENT</h1>
+        <p>Client Registration Portal</p>
+    </div>
+
+    <div class="card">
+
+        <h2>Create Your Account</h2>
+
+        <p class="subtitle">
+            Register to access your client dashboard.
+        </p>
+
+        <form id="registerForm">
+
+            <label for="name">Full Name</label>
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required
+            >
+
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+            >
+
+            <label for="phone">Phone Number</label>
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Enter your phone number"
+                autocomplete="tel"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+
+            <button type="submit" id="registerBtn">
+                Create Account
+            </button>
+
+        </form>
+
+        <div id="message" class="message"></div>
+
+        <div class="login">
+            Already have an account?
+            <a href="login.html">Login here</a>
+        </div>
+
+        <div class="notice">
+            Educational project only. This website is for demonstration
+            and learning purposes and does not constitute financial advice
+            or a real investment offer.
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+/* ================================
+   FIREBASE IMPORTS
+================================ */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+import {
+    getDatabase,
+    ref,
+    set,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+
+/* ================================
+   YOUR FIREBASE CONFIG
+================================ */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyD7McDVKPQ5mZlcVBtmixK3Er9288rbeww",
+    authDomain: "nzama-investment-2026.firebaseapp.com",
+    databaseURL: "https://nzama-investment-2026-default-rtdb.firebaseio.com",
+    projectId: "nzama-investment-2026",
+    storageBucket: "nzama-investment-2026.firebasestorage.app",
+    messagingSenderId: "1050465478535",
+    appId: "1:1050465478535:web:dbdee6dfe598b644399522",
+    measurementId: "G-LEPZ7W5HG8"
+};
+
+
+/* ================================
+   INITIALIZE FIREBASE
+================================ */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getDatabase(app);
+
+
+/* ================================
+   FORM ELEMENTS
+================================ */
+
+const form = document.getElementById("registerForm");
+const registerBtn = document.getElementById("registerBtn");
+const message = document.getElementById("message");
+
+
+/* ================================
+   MESSAGE FUNCTION
+================================ */
+
+function showMessage(text, type){
+
+    message.textContent = text;
+
+    message.className = "message " + type;
+
+}
+
+
+/* ================================
+   REGISTRATION
+================================ */
+
+form.addEventListener("submit", async function(event){
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const phone =
+        document.getElementById("phone").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+
+    /* CHECK PASSWORDS */
+
+    if(password !== confirmPassword){
+
+        showMessage(
+            "Passwords do not match.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(password.length < 6){
+
+        showMessage(
+            "Password must contain at least 6 characters.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    registerBtn.disabled = true;
+
+    registerBtn.textContent = "Creating Account...";
+
+    message.className = "message";
+
+
+    try{
+
+        /* CREATE FIREBASE AUTH ACCOUNT */
+
+        const userCredential =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        const user = userCredential.user;
+
+        console.log(
+            "Firebase Authentication UID:",
+            user.uid
+        );
+
+
+        /* SAVE DISPLAY NAME */
+
+        await updateProfile(user, {
+            displayName: name
+        });
+
+
+        /* ================================
+           CREATE DATABASE PROFILE
+        ================================= */
+
+        const userRef =
+            ref(db, "users/" + user.uid);
+
+
+        await set(userRef, {
+
+            uid: user.uid,
+
+            name: name,
+
+            email: email,
+
+            phone: phone,
+
+            role: "client",
+
+            accountStatus: "active",
+
+            createdAt: serverTimestamp()
+
+        });
+
+
+        console.log(
+            "Database profile created:",
+            "users/" + user.uid
+        );
+
+
+        showMessage(
+            "Account created successfully. Opening your dashboard...",
+            "success"
+        );
+
+
+        /* OPEN DASHBOARD */
+
+        setTimeout(function(){
+
+            window.location.href =
+                "dashboard.html";
+
+        }, 1200);
+
+
+    }catch(error){
+
+        console.error(
+            "Firebase registration error:",
+            error
+        );
+
+
+        let errorMessage =
+            "Registration failed. Please try again.";
+
+
+        if(error.code === "auth/email-already-in-use"){
+
+            errorMessage =
+                "This email address is already registered. Please use the login page.";
+
+        }
+
+        else if(error.code === "auth/invalid-email"){
+
+            errorMessage =
+                "Please enter a valid email address.";
+
+        }
+
+        else if(error.code === "auth/weak-password"){
+
+            errorMessage =
+                "Password is too weak. Use at least 6 characters.";
+
+        }
+
+        else if(error.code === "permission-denied"){
+
+            errorMessage =
+                "Firebase Database permission denied. Please check your Realtime Database rules.";
+
+        }
+
+        else if(error.message){
+
+            errorMessage =
+                error.message;
+        }
+
+
+        showMessage(
+            errorMessage,
+            "error"
+        );
+
+
+        registerBtn.disabled = false;
+
+        registerBtn.textContent =
+            "Create Account";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
